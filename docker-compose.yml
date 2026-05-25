@@ -5,11 +5,11 @@ services:
       - "3000:3000"
     volumes:
       - media_data:/app/media
-      - ./.output:/app/.output
     environment:
       - NODE_ENV=production
       - JWT_SECRET=${JWT_SECRET:-change-me-in-production}
       - DATABASE_URL=postgresql://opencode:opencode@db:5432/opencode?schema=public
+    command: sh -c "npx prisma db push && node .output/server/index.mjs"
     depends_on:
       db:
         condition: service_healthy

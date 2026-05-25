@@ -6,6 +6,11 @@ export default defineNuxtConfig({
     jwtSecret: process.env.JWT_SECRET || 'dev-secret-change-in-production',
     cookieSecure: process.env.NODE_ENV === 'production'
   },
+  nitro: {
+    externals: {
+      traceExclude: ['@prisma/client']
+    }
+  },
   vite: {
     optimizeDeps: {
       include: ['@vue/devtools-core', '@vue/devtools-kit']
