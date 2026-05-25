@@ -1,0 +1,57 @@
+generator client {
+  provider        = "prisma-client-js"
+  binaryTargets   = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id
+  name     String
+  email    String @unique
+  password String
+  role     String @default("user")
+}
+
+model Media {
+  id          String     @id
+  title       String
+  type        String
+  genre       String
+  year        Int?
+  description String     @default("")
+  rating      Float?
+  image       String     @default("")
+  seasons     Int?
+  versions    Version[]
+  episodes    Episode[]
+}
+
+model Version {
+  id      String @id
+  label   String
+  file    String
+  mediaId String
+  media   Media  @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+}
+
+model Episode {
+  id       String          @id
+  season   Int
+  episode  Int
+  title    String
+  mediaId  String
+  media    Media           @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  versions EpisodeVersion[]
+}
+
+model EpisodeVersion {
+  id        String  @id
+  label     String
+  file      String
+  episodeId String
+  episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+}
