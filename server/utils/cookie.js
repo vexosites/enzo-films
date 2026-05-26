@@ -1,10 +1,8 @@
 import { setCookie, deleteCookie } from 'h3'
 
-const config = useRuntimeConfig()
-
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: config.cookieSecure,
+  secure: false,
   sameSite: 'lax',
   path: '/',
   maxAge: 60 * 60 * 24 * 7

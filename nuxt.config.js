@@ -3,8 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss'],
   runtimeConfig: {
-    jwtSecret: process.env.JWT_SECRET || 'dev-secret-change-in-production',
-    cookieSecure: process.env.NODE_ENV === 'production'
+    jwtSecret: process.env.JWT_SECRET || 'dev-secret-change-in-production'
   },
   nitro: {
     externals: {
